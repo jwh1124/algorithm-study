@@ -15,3 +15,39 @@
 2인 상태를 최신화하려면, i-1의 0 1 2 상태 중 최대를 최신화
 
 이렇게 진행했다.
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int N = Integer.parseInt(br.readLine());
+
+        int[] arr = new int[N + 1];
+        int[] dp = new int[N + 1];
+
+        for (int i = 1; i <= N; i++) {
+            arr[i] = Integer.parseInt(br.readLine());
+        }
+
+        dp[1] = arr[1];
+        if (N > 1) {
+            dp[2] = arr[1] + arr[2];
+        }
+        for (int i = 3; i <= N; i++) {
+            dp[i] = Math.max(dp[i - 1], Math.max(dp[i - 2] + arr[i], dp[i - 3] + arr[i - 1] + arr[i]));
+        }
+        // 바로 이전 값이거나, 한칸 띄거나, 두칸 띄거나
+        System.out.println(dp[N]);
+    }
+
+}
+```
+
+이런 방법도 있어서 새로 공유한다..
